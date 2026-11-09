@@ -1,0 +1,126 @@
+@use '../../styles/tokens' as tokens;
+@use '../../styles/mixins' as mixins;
+
+.header {
+  position: relative;
+  z-index: 20;
+  border-bottom: 1px solid var(--color-border);
+  background: var(--color-bg);
+}
+
+.inner {
+  @include mixins.container;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-height: 64px;
+}
+
+.logo {
+  min-width: 0;
+  font-size: 17px;
+  font-weight: 600;
+  letter-spacing: -0.04em;
+  line-height: 1.2;
+}
+
+.actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-left: auto;
+}
+.desktopNavigation,
+.desktopLanguage {
+  display: none;
+}
+.navigation ul {
+  display: grid;
+  gap: 4px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.navigation a {
+  display: block;
+  padding: 10px 0;
+  color: var(--color-text-secondary);
+  font-size: 13px;
+}
+.navigation a:hover,
+.navigation a[aria-current='page'] {
+  color: var(--color-text);
+}
+.navigation a[aria-current='page'] {
+  text-decoration: underline;
+  text-underline-offset: 5px;
+}
+
+.menuButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 42px;
+  height: 42px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  background: var(--color-surface);
+  list-style: none;
+  cursor: pointer;
+}
+
+.menuButton::-webkit-details-marker {
+  display: none;
+}
+.mobileMenu:not([open]) .closeIcon,
+.mobileMenu[open] .menuIcon {
+  display: none;
+}
+.mobileMenu:not([open]) .mobilePanel {
+  display: none;
+}
+
+.mobilePanel {
+  position: absolute;
+  top: 100%;
+  inset-inline: 0;
+  display: grid;
+  gap: 20px;
+  max-height: calc(100dvh - 64px);
+  overflow-y: auto;
+  padding: 20px tokens.$container-padding-mobile;
+  border-bottom: 1px solid var(--color-border-strong);
+  background: var(--color-surface);
+}
+
+@media (min-width: tokens.$tablet) {
+  .mobilePanel {
+    padding-inline: tokens.$container-padding-tablet;
+  }
+}
+
+@media (min-width: tokens.$desktop) {
+  .inner {
+    min-height: 72px;
+    gap: 24px;
+  }
+  .desktopNavigation {
+    display: block;
+    margin-left: auto;
+  }
+  .desktopLanguage {
+    display: block;
+  }
+  .mobileMenu {
+    display: none;
+  }
+  .navigation ul {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+  .actions {
+    gap: 12px;
+    margin-left: 0;
+  }
+}
