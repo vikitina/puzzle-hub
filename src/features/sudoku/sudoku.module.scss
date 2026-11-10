@@ -1,22 +1,150 @@
 @use '../../styles/tokens' as tokens;
 
+.settings {
+  padding: 16px;
+  margin-bottom: 24px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  background: var(--color-surface);
+}
+.settingsFields {
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+.settingsFields legend {
+  padding: 0;
+  margin-bottom: 12px;
+  font-size: 18px;
+  font-weight: 600;
+}
+.settingsHint {
+  color: var(--color-text-secondary);
+}
+.settingsContent {
+  display: grid;
+  gap: 24px;
+  margin-bottom: 20px;
+}
+.fields {
+  display: grid;
+  gap: 16px;
+  align-content: start;
+}
+.field {
+  display: grid;
+  gap: 6px;
+  min-width: 0;
+}
+.field label {
+  font-weight: 500;
+}
+.field input,
+.field select {
+  width: 100%;
+  min-width: 0;
+  min-height: 44px;
+  padding: 8px 12px;
+  border: 1px solid var(--color-border-strong);
+  border-radius: var(--radius-sm);
+  background: var(--color-bg);
+  color: var(--color-text);
+}
+.field small {
+  color: var(--color-text-secondary);
+}
+.field input[aria-invalid='true'] {
+  border-color: var(--color-danger);
+}
+.error {
+  margin: 0;
+  color: var(--color-danger);
+}
+.previewArea {
+  display: grid;
+  grid-template-columns: minmax(80px, 128px) minmax(0, 1fr);
+  gap: 16px;
+  align-items: start;
+}
+.metadata {
+  display: grid;
+  gap: 8px;
+  margin: 0;
+  font-size: 12px;
+  line-height: 1.4;
+}
+.metadata > div {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 8px;
+}
+.metadata dt {
+  color: var(--color-text-secondary);
+  overflow-wrap: anywhere;
+}
+.metadata dd {
+  margin: 0;
+  font-weight: 600;
+  white-space: nowrap;
+}
+.primary,
+.reset {
+  min-height: 44px;
+  padding: 10px 16px;
+  border: 1px solid var(--color-border-strong);
+  border-radius: var(--radius-sm);
+}
+.primary {
+  background: var(--color-accent);
+  color: var(--color-accent-text);
+}
+.primary:disabled,
+.reset:disabled {
+  opacity: 0.6;
+}
+.settings > .reset {
+  margin-top: 12px;
+}
+.generationStatus {
+  margin: 12px 0 0;
+  color: var(--color-text-secondary);
+}
+.generationStatus[data-error='true'] {
+  color: var(--color-danger);
+}
+.warning {
+  padding: 12px;
+  border: 1px solid var(--color-warning);
+  border-radius: var(--radius-sm);
+  color: var(--color-warning);
+}
 .game {
   display: grid;
   gap: tokens.$space-6;
   align-items: start;
 }
-.board {
+.board,
+.preview {
   display: grid;
   grid-template-columns: repeat(var(--board-size), minmax(0, 1fr));
   width: 100%;
-  max-width: 440px;
   overflow: hidden;
   border: 2px solid var(--color-text);
   border-radius: var(--radius-sm);
 }
-.cell {
+.board {
+  max-width: 440px;
+}
+.preview {
+  max-width: 128px;
+}
+.cell,
+.previewCell {
+  display: block;
   width: 100%;
   min-width: 0;
+  min-height: 0;
   aspect-ratio: 1;
   padding: 0;
   border: 0;
@@ -24,26 +152,35 @@
   border-bottom: 1px solid var(--color-border-strong);
   border-radius: 0;
   background: var(--color-surface);
+}
+.cell {
   color: var(--color-text);
   text-align: center;
-  font-size: clamp(20px, 6vw, 32px);
+  font-size: clamp(16px, calc(180px / var(--board-size)), 32px);
   line-height: 1;
 }
-.cell[data-block-right='true'] {
+.cell[data-block-right='true'],
+.previewCell[data-block-right='true'] {
   border-right: 2px solid var(--color-text);
 }
-.cell[data-block-bottom='true'] {
+.cell[data-block-bottom='true'],
+.previewCell[data-block-bottom='true'] {
   border-bottom: 2px solid var(--color-text);
 }
-.cell[data-last-column='true'] {
+.cell[data-last-column='true'],
+.previewCell[data-last-column='true'] {
   border-right: 0;
 }
-.cell[data-last-row='true'] {
+.cell[data-last-row='true'],
+.previewCell[data-last-row='true'] {
   border-bottom: 0;
 }
 .cell[readonly] {
   background: var(--color-surface-hover);
   font-weight: 600;
+}
+.cell:disabled {
+  opacity: 0.65;
 }
 .cell[aria-invalid='true'] {
   color: var(--color-danger);
@@ -65,10 +202,6 @@
   color: var(--color-success);
 }
 .reset {
-  min-height: 44px;
-  padding: 10px 16px;
-  border: 1px solid var(--color-border-strong);
-  border-radius: var(--radius-sm);
   background: var(--color-surface);
   color: var(--color-text);
 }
@@ -76,6 +209,13 @@
   background: var(--color-surface-hover);
 }
 @media (min-width: tokens.$tablet) {
+  .settings {
+    padding: 24px;
+  }
+  .settingsContent {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: 32px;
+  }
   .game {
     grid-template-columns: minmax(0, 440px) minmax(0, 1fr);
   }

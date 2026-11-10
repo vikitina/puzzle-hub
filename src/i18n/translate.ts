@@ -2,11 +2,20 @@ import { LANGUAGES } from './config';
 import type { Language } from './config';
 import type { Dictionary, TranslationKey } from './types';
 
-function readTranslation(dictionary: Dictionary, key: string): string | undefined {
+export type TranslationValues = Readonly<Record<string, string | number>>;
+
+function readTranslation(
+  dictionary: Dictionary,
+  key: string,
+): string | undefined {
   let value: unknown = dictionary;
 
   for (const part of key.split('.')) {
-    if (typeof value !== 'object' || value === null || !Object.hasOwn(value, part)) {
+    if (
+      typeof value !== 'object' ||
+      value === null ||
+      !Object.hasOwn(value, part)
+    ) {
       return undefined;
     }
 
@@ -16,10 +25,17 @@ function readTranslation(dictionary: Dictionary, key: string): string | undefine
   return typeof value === 'string' ? value : undefined;
 }
 
-export function getTranslation(language: Language, key: TranslationKey): string {
-  return (
+export function getTranslation(
+  language: Language,
+  key: TranslationKey,
+  values: TranslationValues = {},
+): string {
+  const template =
     readTranslation(LANGUAGES[language].dictionary, key) ??
     readTranslation(LANGUAGES.en.dictionary, key) ??
-    key
+    key;
+
+  return template.replace(/\{(\w+)\}/g, (placeholder, name: string) =>
+    Object.hasOwn(values, name) ? String(values[name]) : placeholder,
   );
 }

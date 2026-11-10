@@ -13,9 +13,15 @@ interface Props {
   puzzle: SudokuPuzzle;
   board: SudokuBoard;
   onChange: (index: number, value: SudokuCell) => void;
+  disabled?: boolean;
 }
 
-export default function SudokuBoardView({ puzzle, board, onChange }: Props) {
+export default function SudokuBoardView({
+  puzzle,
+  board,
+  onChange,
+  disabled = false,
+}: Props) {
   const { t } = useTranslation();
   const rules = useMemo(() => new SudokuRules(puzzle.size), [puzzle.size]);
   const conflicts = new Set(rules.getConflicts(board));
@@ -45,6 +51,7 @@ export default function SudokuBoardView({ puzzle, board, onChange }: Props) {
             value={value ?? ''}
             onFocus={(event) => event.currentTarget.select()}
             readOnly={given}
+            disabled={disabled}
             aria-label={given ? `${label}, ${t('sudoku.given')}` : label}
             aria-invalid={conflicts.has(index)}
             data-block-right={(column + 1) % rules.blockColumns === 0}

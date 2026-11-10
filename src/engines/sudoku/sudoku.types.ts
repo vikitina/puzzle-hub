@@ -1,4 +1,6 @@
-export type SudokuSize = 4 | 6 | 9;
+import type { SudokuSize } from './sudoku-config';
+
+export type { SudokuSize } from './sudoku-config';
 
 export type SudokuCell = number | null;
 

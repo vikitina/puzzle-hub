@@ -1,10 +1,5 @@
 import type { SudokuBoard, SudokuCell, SudokuSize } from './sudoku.types';
-
-const layouts = {
-  4: { blockRows: 2, blockColumns: 2 },
-  6: { blockRows: 2, blockColumns: 3 },
-  9: { blockRows: 3, blockColumns: 3 },
-} as const;
+import { getSudokuLayout } from './sudoku-config';
 
 export class SudokuRules {
   readonly size: SudokuSize;
@@ -14,11 +9,7 @@ export class SudokuRules {
   private readonly values: readonly number[];
 
   constructor(size: SudokuSize = 9) {
-    if (size !== 4 && size !== 6 && size !== 9) {
-      throw new RangeError('Поддерживаются размеры 4, 6 и 9.');
-    }
-
-    const layout = layouts[size];
+    const layout = getSudokuLayout(size);
 
     this.size = size;
     this.blockRows = layout.blockRows;
@@ -38,7 +29,9 @@ export class SudokuRules {
       return false;
     }
 
-    return this.getPeerIndexes(index).every((peerIndex) => board[peerIndex] !== value);
+    return this.getPeerIndexes(index).every(
+      (peerIndex) => board[peerIndex] !== value,
+    );
   }
 
   getCandidates(board: SudokuBoard, index: number): number[] {
@@ -76,7 +69,8 @@ export class SudokuRules {
     this.assertBoard(board);
 
     return (
-      board.every((value) => value !== null) && this.getConflicts(board).length === 0
+      board.every((value) => value !== null) &&
+      this.getConflicts(board).length === 0
     );
   }
 
@@ -91,12 +85,19 @@ export class SudokuRules {
     }
 
     const firstBlockRow = Math.floor(row / this.blockRows) * this.blockRows;
-    const firstBlockColumn = Math.floor(column / this.blockColumns) * this.blockColumns;
+    const firstBlockColumn =
+      Math.floor(column / this.blockColumns) * this.blockColumns;
 
     for (let rowOffset = 0; rowOffset < this.blockRows; rowOffset += 1) {
-      for (let columnOffset = 0; columnOffset < this.blockColumns; columnOffset += 1) {
+      for (
+        let columnOffset = 0;
+        columnOffset < this.blockColumns;
+        columnOffset += 1
+      ) {
         const blockIndex =
-          (firstBlockRow + rowOffset) * this.size + firstBlockColumn + columnOffset;
+          (firstBlockRow + rowOffset) * this.size +
+          firstBlockColumn +
+          columnOffset;
 
         indexes.add(blockIndex);
       }
@@ -117,13 +118,19 @@ export class SudokuRules {
         value !== null &&
         (!Number.isInteger(value) || value < 1 || value > this.size)
       ) {
-        throw new TypeError('Клетка должна содержать null или допустимое число.');
+        throw new TypeError(
+          'Клетка должна содержать null или допустимое число.',
+        );
       }
     }
   }
 
   private assertIndex(index: number): void {
-    if (!Number.isInteger(index) || index < 0 || index >= this.size * this.size) {
+    if (
+      !Number.isInteger(index) ||
+      index < 0 ||
+      index >= this.size * this.size
+    ) {
       throw new RangeError('Индекс клетки находится за пределами поля.');
     }
   }
