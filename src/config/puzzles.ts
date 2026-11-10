@@ -36,6 +36,6 @@ export const PUZZLES = [
     id: 'scanword',
     titleKey: 'navigation.scanword',
     descriptionKey: 'puzzles.scanword',
-    available: false,
+    available: true,
   },
 ] as const satisfies readonly PuzzleDefinition[];

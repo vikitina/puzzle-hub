@@ -1,9 +1,11 @@
+import { scanwordEn } from './scanword/en';
 import { fillwordEn } from './fillword/en';
 import { nonogramEn } from './nonogram/en';
 import { codewordEn } from './codeword/en';
 
 export const en = {
   codeword: codewordEn,
+  scanword: scanwordEn,
   nonogram: nonogramEn,
   fillword: fillwordEn,
   app: { name: 'Puzzle Workshop', subtitle: 'Create and solve puzzles' },

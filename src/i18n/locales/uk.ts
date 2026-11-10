@@ -1,3 +1,4 @@
+import { scanwordUk } from './scanword/uk';
 import type { Dictionary } from '../types';
 import { fillwordUk } from './fillword/uk';
 import { nonogramUk } from './nonogram/uk';
@@ -5,6 +6,7 @@ import { codewordUk } from './codeword/uk';
 
 export const uk = {
   codeword: codewordUk,
+  scanword: scanwordUk,
   nonogram: nonogramUk,
   fillword: fillwordUk,
   app: { name: 'Puzzle Workshop', subtitle: 'Створюй і розв’язуй головоломки' },

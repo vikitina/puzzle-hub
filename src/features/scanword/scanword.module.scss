@@ -1,0 +1,323 @@
+@use '../../styles/tokens' as tokens;
+.page {
+  min-width: 0;
+  --scanword-cell: 96px;
+}
+.card {
+  min-width: 0;
+  padding: 16px;
+  margin-block: 24px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  background: var(--color-surface);
+}
+.card h2 {
+  font-size: clamp(20px, 3vw, 28px);
+  overflow-wrap: anywhere;
+}
+.card h3 {
+  overflow-wrap: anywhere;
+}
+.card fieldset {
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+.card legend,
+.card summary {
+  padding: 0;
+  margin-bottom: 12px;
+  font-size: 18px;
+  font-weight: 600;
+}
+.card summary {
+  cursor: pointer;
+}
+.fields,
+.fileInputs {
+  display: grid;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+.fields label:not(.checkbox),
+.fileInputs label,
+.printSize {
+  display: grid;
+  gap: 6px;
+  align-content: start;
+  min-width: 0;
+}
+.fields input:not([type='checkbox']),
+.fields textarea,
+.fields select,
+.fileInputs input,
+.printSize select {
+  width: 100%;
+  min-width: 0;
+  min-height: 44px;
+  margin-block: 4px;
+  padding: 8px 10px;
+  border: 1px solid var(--color-border-strong);
+  border-radius: var(--radius-sm);
+  background: var(--color-bg);
+  color: var(--color-text);
+  font: inherit;
+}
+.fields textarea {
+  resize: vertical;
+}
+.hint {
+  color: var(--color-text-secondary);
+  font-size: 12px;
+  line-height: 1.6;
+}
+.card button:not(.letterCell):not(.clueButton),
+.toolbar button {
+  min-height: 44px;
+  max-width: 100%;
+  padding: 10px 14px;
+  border: 1px solid var(--color-border-strong);
+  border-radius: var(--radius-sm);
+  background: var(--color-bg);
+  color: var(--color-text);
+  font: inherit;
+  overflow-wrap: anywhere;
+}
+.card button:disabled,
+.toolbar button:disabled {
+  opacity: 0.55;
+  cursor: default;
+}
+.card button.primary,
+.toolbar button[aria-pressed='true'] {
+  background: var(--color-accent);
+  color: var(--color-accent-text);
+}
+.toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  margin-block: 16px;
+}
+.toolbar p {
+  margin: 0;
+}
+.checkbox {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 44px;
+}
+.checkbox input {
+  width: 20px;
+  height: 20px;
+  flex: 0 0 auto;
+}
+.error {
+  color: var(--color-danger);
+}
+.warning {
+  color: var(--color-warning);
+}
+.success {
+  color: var(--color-success);
+}
+.boardViewport {
+  width: 100%;
+  max-width: 100%;
+  padding: 3px;
+  overflow: auto;
+  overscroll-behavior-inline: contain;
+}
+.board {
+  display: grid;
+  grid-template-columns: repeat(var(--columns), var(--scanword-cell));
+  grid-auto-rows: var(--scanword-cell);
+  width: max-content;
+  border-top: 1px solid var(--color-border-strong);
+  border-left: 1px solid var(--color-border-strong);
+}
+.letterCell,
+.clueCell,
+.blocked {
+  display: grid;
+  place-items: center;
+  min-width: 0;
+  min-height: 0;
+  width: 100%;
+  padding: 0;
+  margin: 0;
+  border: 0;
+  border-right: 1px solid var(--color-border-strong);
+  border-bottom: 1px solid var(--color-border-strong);
+  border-radius: 0;
+  background: var(--color-surface);
+  color: var(--color-text);
+  font: inherit;
+}
+.letterCell {
+  font-size: 34px;
+  line-height: 1;
+}
+.letterCell[data-given='true'] {
+  text-decoration: underline;
+  font-weight: 700;
+}
+.letterCell[data-word='true'] {
+  background: var(--color-surface-hover);
+}
+.letterCell[data-selected='true'] {
+  box-shadow: inset 0 0 0 3px var(--color-accent);
+}
+.letterCell[data-mistake='true'] {
+  color: var(--color-danger);
+  box-shadow: inset 0 0 0 3px var(--color-danger);
+}
+.letterCell:focus-visible,
+.clueButton:focus-visible {
+  outline: 3px solid var(--color-warning);
+  outline-offset: -4px;
+  z-index: 1;
+}
+.blocked {
+  background: var(--color-text);
+}
+.clueCell {
+  display: flex;
+  flex-direction: column;
+  background: var(--color-surface-hover);
+}
+.clueButton {
+  display: block;
+  flex: 1 1 0;
+  width: 100%;
+  min-height: 0;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  color: var(--color-text);
+}
+.clueButton + .clueButton {
+  border-top: 1px solid var(--color-border-strong);
+}
+.clueButton svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+  font-family: monospace;
+}
+.clueButton text {
+  fill: currentColor;
+}
+.clueButton[aria-pressed='true'] {
+  box-shadow: inset 0 0 0 2px var(--color-accent);
+}
+.clueButton:disabled {
+  opacity: 1 !important;
+}
+.overflowClue {
+  display: block;
+  max-height: 46px;
+  padding: 4px;
+  overflow: auto;
+  font-size: 11px;
+  overflow-wrap: anywhere;
+}
+.activeClue {
+  padding-block: 16px;
+  overflow-wrap: anywhere;
+}
+.activeClue p {
+  margin-bottom: 0;
+}
+.answerInput {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+}
+.answerInput input {
+  flex: 1 1 120px;
+}
+.fields input.singleLetter {
+  width: 70px;
+  font-size: 24px;
+  text-align: center;
+}
+.singleLetter[readonly] {
+  font-weight: 700;
+  text-decoration: underline;
+}
+.palette {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.palette button {
+  min-width: 44px;
+}
+.printSize {
+  max-width: 300px;
+}
+.fileInputs {
+  margin-top: 20px;
+}
+.fileInputs input {
+  font-size: 12px;
+}
+.printRoot {
+  display: none;
+}
+@media (min-width: 480px) {
+  .fields {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .wide {
+    grid-column: 1 / -1;
+  }
+}
+@media (min-width: tokens.$tablet) {
+  .card {
+    padding: 24px;
+  }
+  .fileInputs {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+@media print {
+  :global(html[data-scanword-print] body) {
+    margin: 0;
+    color: black;
+    background: white;
+  }
+  :global(html[data-scanword-print] body > *) {
+    display: none !important;
+  }
+  :global(html[data-scanword-print] body > [data-scanword-print-root]) {
+    display: block !important;
+  }
+  :global(html[data-scanword-print='task']) .solutionSheet,
+  :global(html[data-scanword-print='solution']) .taskSheet {
+    display: none;
+  }
+  .printSheet {
+    break-inside: avoid;
+  }
+  .solutionSheet {
+    break-before: page;
+  }
+  :global(html[data-scanword-print='solution']) .solutionSheet {
+    break-before: auto;
+  }
+  .printSheet img {
+    display: block;
+    width: auto;
+    max-width: 100%;
+    height: auto;
+    print-color-adjust: exact;
+    -webkit-print-color-adjust: exact;
+  }
+}

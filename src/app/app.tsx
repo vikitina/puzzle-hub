@@ -7,6 +7,7 @@ import SudokuPage from '../features/sudoku/sudoku-page';
 import FillwordPage from '../features/fillword/fillword-page';
 import NonogramPage from '../features/nonogram/nonogram-page';
 import CodewordPage from '../features/codeword/codeword-page';
+import ScanwordPage from '../features/scanword/scanword-page';
 
 export default function App() {
   return (
@@ -19,6 +20,7 @@ export default function App() {
           <Route path="word-search" element={<FillwordPage />} />
           <Route path="nonogram" element={<NonogramPage />} />
           <Route path="codeword" element={<CodewordPage />} />
+          <Route path="scanword" element={<ScanwordPage />} />
           <Route path=":puzzleId" element={<PuzzleInfoPage />} />
           <Route path="*" element={<NotFoundPage />} />
         </Route>
