@@ -30,7 +30,7 @@ export const PUZZLES = [
     id: 'codeword',
     titleKey: 'navigation.codeword',
     descriptionKey: 'puzzles.codeword',
-    available: false,
+    available: true,
   },
   {
     id: 'scanword',

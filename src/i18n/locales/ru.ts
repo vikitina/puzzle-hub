@@ -1,8 +1,10 @@
 import type { Dictionary } from '../types';
 import { fillwordRu } from './fillword/ru';
 import { nonogramRu } from './nonogram/ru';
+import { codewordRu } from './codeword/ru';
 
 export const ru = {
+  codeword: codewordRu,
   nonogram: nonogramRu,
   fillword: fillwordRu,
   app: { name: 'Puzzle Workshop', subtitle: 'Создавай и решай головоломки' },

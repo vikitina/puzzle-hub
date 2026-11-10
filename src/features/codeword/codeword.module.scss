@@ -1,0 +1,318 @@
+@use '../../styles/tokens' as tokens;
+.page {
+  min-width: 0;
+  --codeword-cell: 36px;
+}
+.card {
+  min-width: 0;
+  padding: 16px;
+  margin-block: 24px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  background: var(--color-surface);
+}
+.card h2 {
+  font-size: clamp(20px, 3vw, 28px);
+  overflow-wrap: anywhere;
+}
+.card h3 {
+  overflow-wrap: anywhere;
+}
+.card fieldset {
+  min-width: 0;
+  padding: 0;
+  margin: 0;
+  border: 0;
+}
+.card legend,
+.card summary {
+  padding: 0;
+  margin-bottom: 12px;
+  font-size: 18px;
+  font-weight: 600;
+}
+.card summary {
+  cursor: pointer;
+}
+.fields,
+.fileInputs {
+  display: grid;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+.fields > label:not(.checkbox),
+.fileInputs label {
+  display: grid;
+  gap: 6px;
+  align-content: start;
+  min-width: 0;
+}
+.fields input:not([type='checkbox']),
+.fields select,
+.fields textarea,
+.fileInputs input {
+  width: 100%;
+  min-width: 0;
+  min-height: 44px;
+  padding: 8px 10px;
+  border: 1px solid var(--color-border-strong);
+  border-radius: var(--radius-sm);
+  background: var(--color-bg);
+  color: var(--color-text);
+  font: inherit;
+}
+.fields textarea {
+  resize: vertical;
+}
+.fields small,
+.hint {
+  color: var(--color-text-secondary);
+  font-size: 12px;
+  line-height: 1.6;
+}
+.card button:not(.cell),
+.toolbar button {
+  min-height: 44px;
+  max-width: 100%;
+  padding: 10px 14px;
+  border: 1px solid var(--color-border-strong);
+  border-radius: var(--radius-sm);
+  background: var(--color-bg);
+  color: var(--color-text);
+  font: inherit;
+  overflow-wrap: anywhere;
+}
+.card button:disabled,
+.toolbar button:disabled {
+  opacity: 0.55;
+  cursor: default;
+}
+.card button.primary,
+.toolbar button[aria-pressed='true'] {
+  background: var(--color-accent);
+  color: var(--color-accent-text);
+}
+.toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  margin-block: 16px;
+}
+.toolbar p {
+  margin: 0;
+}
+.checkbox {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 44px;
+}
+.checkbox input {
+  width: 20px;
+  height: 20px;
+  flex: 0 0 auto;
+}
+.error {
+  color: var(--color-danger);
+}
+.success {
+  color: var(--color-success);
+}
+.warning {
+  color: var(--color-warning);
+}
+.boardViewport {
+  width: 100%;
+  max-width: 100%;
+  padding: 2px;
+  overflow: auto;
+  overscroll-behavior-inline: contain;
+}
+.board {
+  display: grid;
+  grid-template-columns: repeat(var(--columns), var(--codeword-cell));
+  grid-auto-rows: var(--codeword-cell);
+  width: max-content;
+  border: 1px solid var(--color-text);
+}
+.cell,
+.blocked {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 100%;
+  min-width: 0;
+  min-height: 0;
+  padding: 0;
+  margin: 0;
+  border: 0;
+  border-right: 1px solid var(--color-border-strong);
+  border-bottom: 1px solid var(--color-border-strong);
+  border-radius: 0;
+  background: var(--color-surface);
+  color: var(--color-text);
+  font: inherit;
+}
+.blocked {
+  background: var(--color-text);
+}
+.codeNumber {
+  position: absolute;
+  top: 2px;
+  left: 3px;
+  font-size: 9px;
+  line-height: 1;
+}
+.cellLetter {
+  margin-top: 6px;
+  font-size: 21px;
+  line-height: 1;
+}
+.cell[data-given='true'] .cellLetter {
+  font-weight: 700;
+}
+.cell[data-selected='true'] {
+  box-shadow: inset 0 0 0 2px var(--color-accent);
+  background: var(--color-surface-hover);
+}
+.cell[data-conflict='true'],
+.cell[data-mistake='true'] {
+  color: var(--color-danger);
+  box-shadow: inset 0 0 0 2px var(--color-danger);
+}
+.cell:focus-visible {
+  outline: 3px solid var(--color-warning);
+  outline-offset: -4px;
+  z-index: 1;
+}
+.keyTable {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(44px, 1fr));
+  gap: 8px;
+  max-width: 800px;
+  margin-block: 16px;
+}
+.keyItem {
+  display: grid;
+  gap: 4px;
+  min-width: 0;
+  padding: 4px;
+  border: 1px solid var(--color-border-strong);
+  border-radius: var(--radius-sm);
+  font-size: 11px;
+}
+.keyItem input {
+  width: 100%;
+  min-width: 0;
+  height: 38px;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: var(--color-bg);
+  color: var(--color-text);
+  font: inherit;
+  font-size: 21px;
+  text-align: center;
+  text-transform: uppercase;
+}
+.keyItem input[readonly] {
+  font-weight: 700;
+  background: var(--color-surface-hover);
+}
+.keyItem[data-selected='true'] {
+  outline: 2px solid var(--color-accent);
+}
+.keyItem[data-conflict='true'] {
+  border-color: var(--color-danger);
+  color: var(--color-danger);
+}
+.keyLetter {
+  display: grid;
+  place-items: center;
+  min-height: 38px;
+  font-size: 21px;
+}
+.palette {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.palette button {
+  min-width: 44px;
+}
+.palette button[data-used='true'] {
+  color: var(--color-text-muted);
+}
+.available {
+  word-spacing: 6px;
+  overflow-wrap: anywhere;
+}
+.wordBank {
+  overflow-wrap: anywhere;
+}
+.fileInputs {
+  margin-top: 20px;
+}
+.fileInputs input {
+  font-size: 12px;
+}
+.printRoot {
+  display: none;
+}
+@media (min-width: 480px) {
+  .fields {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .wide {
+    grid-column: 1 / -1;
+  }
+}
+@media (min-width: tokens.$tablet) {
+  .card {
+    padding: 24px;
+  }
+  .fileInputs {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+@media (min-width: tokens.$desktop) {
+  .page {
+    --codeword-cell: 40px;
+  }
+}
+@media print {
+  :global(html[data-codeword-print] body) {
+    margin: 0;
+    color: black;
+    background: white;
+  }
+  :global(html[data-codeword-print] body > *) {
+    display: none !important;
+  }
+  :global(html[data-codeword-print] body > [data-codeword-print-root]) {
+    display: block !important;
+  }
+  :global(html[data-codeword-print='task']) .solutionSheet,
+  :global(html[data-codeword-print='solution']) .taskSheet {
+    display: none;
+  }
+  .printSheet {
+    break-inside: avoid;
+  }
+  .solutionSheet {
+    break-before: page;
+  }
+  :global(html[data-codeword-print='solution']) .solutionSheet {
+    break-before: auto;
+  }
+  .printSheet img {
+    display: block;
+    width: 100%;
+    height: auto;
+    max-height: 250mm;
+    object-fit: contain;
+    print-color-adjust: exact;
+    -webkit-print-color-adjust: exact;
+  }
+}
