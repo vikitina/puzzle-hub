@@ -18,7 +18,7 @@ export const PUZZLES = [
     id: 'nonogram',
     titleKey: 'navigation.nonogram',
     descriptionKey: 'puzzles.nonogram',
-    available: false,
+    available: true,
   },
   {
     id: 'word-search',

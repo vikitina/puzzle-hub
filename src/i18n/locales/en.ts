@@ -1,6 +1,8 @@
 import { fillwordEn } from './fillword/en';
+import { nonogramEn } from './nonogram/en';
 
 export const en = {
+  nonogram: nonogramEn,
   fillword: fillwordEn,
   app: { name: 'Puzzle Workshop', subtitle: 'Create and solve puzzles' },
   navigation: {

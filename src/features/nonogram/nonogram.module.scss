@@ -1,0 +1,307 @@
+@use '../../styles/tokens' as tokens;
+
+.page {
+  min-width: 0;
+  --nonogram-cell: 32px;
+}
+.card {
+  min-width: 0;
+  padding: 16px;
+  margin-block: 24px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  background: var(--color-surface);
+}
+.card h2 {
+  font-size: clamp(20px, 3vw, 28px);
+  overflow-wrap: anywhere;
+}
+.card h3 {
+  overflow-wrap: anywhere;
+}
+.card fieldset {
+  min-width: 0;
+  padding: 0;
+  margin: 0;
+  border: 0;
+}
+.card legend,
+.card summary {
+  padding: 0;
+  margin-bottom: 12px;
+  font-size: 18px;
+  font-weight: 600;
+}
+.card summary {
+  cursor: pointer;
+}
+.fields,
+.fileInputs {
+  display: grid;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+.fields label,
+.fileInputs label,
+.randomSettings > label:not(.checkbox) {
+  display: grid;
+  gap: 6px;
+  align-content: start;
+  min-width: 0;
+}
+.fields input,
+.fields select,
+.randomSettings input[type='number'],
+.fileInputs input {
+  width: 100%;
+  min-width: 0;
+  min-height: 44px;
+  padding: 8px 10px;
+  border: 1px solid var(--color-border-strong);
+  border-radius: var(--radius-sm);
+  background: var(--color-bg);
+  color: var(--color-text);
+  font: inherit;
+}
+.card button:not(.pixel),
+.toolbar button {
+  min-height: 44px;
+  max-width: 100%;
+  padding: 10px 14px;
+  border: 1px solid var(--color-border-strong);
+  border-radius: var(--radius-sm);
+  background: var(--color-bg);
+  color: var(--color-text);
+  font: inherit;
+  overflow-wrap: anywhere;
+}
+.card button:disabled,
+.toolbar button:disabled {
+  opacity: 0.55;
+  cursor: default;
+}
+.card button.primary,
+.toolbar button[aria-pressed='true'] {
+  background: var(--color-accent);
+  color: var(--color-accent-text);
+}
+.toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  margin-block: 16px;
+}
+.toolbar p {
+  margin: 0;
+}
+.checkbox {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 44px;
+}
+.checkbox input {
+  width: 20px;
+  height: 20px;
+  flex: 0 0 auto;
+}
+.randomSettings {
+  display: grid;
+  gap: 12px;
+  margin-top: 24px;
+  padding-top: 20px;
+  border-top: 1px solid var(--color-border);
+}
+.hint {
+  color: var(--color-text-secondary);
+  font-size: 12px;
+  line-height: 1.6;
+}
+.error {
+  color: var(--color-danger);
+}
+.success {
+  color: var(--color-success);
+}
+.warning {
+  color: var(--color-warning);
+}
+.boardViewport {
+  width: 100%;
+  min-width: 0;
+  max-width: 100%;
+  padding: 2px;
+  overflow: auto;
+  overscroll-behavior-inline: contain;
+}
+.frame {
+  display: grid;
+  grid-template-columns: calc(var(--left-slots) * 18px + 12px) calc(
+      var(--columns) * var(--nonogram-cell) + 4px
+    );
+  grid-template-rows: calc(var(--top-slots) * 18px + 12px) calc(
+      var(--rows) * var(--nonogram-cell) + 4px
+    );
+  width: max-content;
+}
+.columnHints {
+  display: grid;
+  grid-template-columns: repeat(var(--columns), var(--nonogram-cell));
+  padding-inline: 2px;
+}
+.rowHints {
+  display: grid;
+  grid-template-rows: repeat(var(--rows), var(--nonogram-cell));
+  padding-block: 2px;
+}
+.rowHint {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  padding-inline-end: 8px;
+}
+.columnHint {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: center;
+  padding-bottom: 8px;
+}
+.rowHint span,
+.columnHint span {
+  flex: 0 0 auto;
+  width: 18px;
+  height: 18px;
+  text-align: center;
+  font-size: 12px;
+  line-height: 18px;
+  font-weight: 600;
+}
+.rowHint[data-status='complete'],
+.columnHint[data-status='complete'] {
+  color: var(--color-success);
+}
+.rowHint[data-status='conflict'],
+.columnHint[data-status='conflict'] {
+  color: var(--color-danger);
+  text-decoration: underline;
+}
+.pixels {
+  display: grid;
+  grid-template-columns: repeat(var(--columns), var(--nonogram-cell));
+  grid-auto-rows: var(--nonogram-cell);
+  width: max-content;
+  border: 2px solid var(--color-text);
+  background: var(--color-surface);
+}
+.pixel {
+  display: grid;
+  place-items: center;
+  width: 100%;
+  min-width: 0;
+  min-height: 0;
+  padding: 0;
+  margin: 0;
+  border: 0;
+  border-right: 1px solid var(--color-border-strong);
+  border-bottom: 1px solid var(--color-border-strong);
+  border-radius: 0;
+  background: transparent;
+  color: var(--color-text-secondary);
+  font: inherit;
+  font-size: 24px;
+  line-height: 1;
+  user-select: none;
+}
+.pixel[data-mark='1'] {
+  background: var(--color-text);
+}
+.pixel[data-block-right='true'] {
+  border-right: 2px solid var(--color-text);
+}
+.pixel[data-block-bottom='true'] {
+  border-bottom: 2px solid var(--color-text);
+}
+.pixel[data-last-column='true'] {
+  border-right: 0;
+}
+.pixel[data-last-row='true'] {
+  border-bottom: 0;
+}
+.pixel[data-mistake='true'] {
+  box-shadow: inset 0 0 0 3px var(--color-danger);
+  color: var(--color-danger);
+}
+.pixel:focus-visible {
+  position: relative;
+  outline: 3px solid var(--color-warning);
+  outline-offset: -4px;
+}
+.fileInputs {
+  margin-top: 20px;
+}
+.fileInputs input {
+  font-size: 12px;
+}
+.printRoot {
+  display: none;
+}
+
+@media (min-width: 480px) {
+  .fields {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .wide {
+    grid-column: 1 / -1;
+  }
+}
+@media (min-width: tokens.$tablet) {
+  .card {
+    padding: 24px;
+  }
+  .fileInputs {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+@media (min-width: tokens.$desktop) {
+  .page {
+    --nonogram-cell: 36px;
+  }
+}
+
+@media print {
+  :global(html[data-nonogram-print] body) {
+    margin: 0;
+    color: black;
+    background: white;
+  }
+  :global(html[data-nonogram-print] body > *) {
+    display: none !important;
+  }
+  :global(html[data-nonogram-print] body > [data-nonogram-print-root]) {
+    display: block !important;
+  }
+  :global(html[data-nonogram-print='task']) .solutionSheet,
+  :global(html[data-nonogram-print='solution']) .taskSheet {
+    display: none;
+  }
+  .printSheet {
+    break-inside: avoid;
+  }
+  .solutionSheet {
+    break-before: page;
+  }
+  :global(html[data-nonogram-print='solution']) .solutionSheet {
+    break-before: auto;
+  }
+  .printSheet img {
+    display: block;
+    width: 100%;
+    height: auto;
+    max-height: 250mm;
+    object-fit: contain;
+    print-color-adjust: exact;
+    -webkit-print-color-adjust: exact;
+  }
+}

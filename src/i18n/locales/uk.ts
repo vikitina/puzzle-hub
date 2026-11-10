@@ -1,7 +1,9 @@
 import type { Dictionary } from '../types';
 import { fillwordUk } from './fillword/uk';
+import { nonogramUk } from './nonogram/uk';
 
 export const uk = {
+  nonogram: nonogramUk,
   fillword: fillwordUk,
   app: { name: 'Puzzle Workshop', subtitle: 'Створюй і розв’язуй головоломки' },
   navigation: {
