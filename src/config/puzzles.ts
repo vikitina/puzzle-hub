@@ -24,7 +24,7 @@ export const PUZZLES = [
     id: 'word-search',
     titleKey: 'navigation.wordSearch',
     descriptionKey: 'puzzles.wordSearch',
-    available: false,
+    available: true,
   },
   {
     id: 'codeword',

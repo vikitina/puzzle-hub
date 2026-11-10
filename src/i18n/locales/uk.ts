@@ -1,6 +1,8 @@
 import type { Dictionary } from '../types';
+import { fillwordUk } from './fillword/uk';
 
 export const uk = {
+  fillword: fillwordUk,
   app: { name: 'Puzzle Workshop', subtitle: 'Створюй і розв’язуй головоломки' },
   navigation: {
     label: 'Головоломки',

@@ -1,4 +1,7 @@
+import { fillwordEn } from './fillword/en';
+
 export const en = {
+  fillword: fillwordEn,
   app: { name: 'Puzzle Workshop', subtitle: 'Create and solve puzzles' },
   navigation: {
     label: 'Puzzles',
